@@ -1,0 +1,8 @@
+# Ignore uploads folder
+uploads/
+
+# Ignore log files
+*.log
+
+# Ignore entire logs folder and its contents
+application/logs/
