@@ -25,7 +25,6 @@ register_language_files(FOLLOW_UP_MODULE_NAME, [FOLLOW_UP_MODULE_NAME]);
  */
 register_activation_hook(FOLLOW_UP_MODULE_NAME, 'follow_up_activation_hook');
 
-
 function follow_up_activation_hook()
 {
     $CI = &get_instance();
@@ -36,7 +35,6 @@ function follow_up_activation_hook()
  * Register deactivation module hook
  */
 register_deactivation_hook(FOLLOW_UP_MODULE_NAME, 'follow_up_deactivation_hook');
-
 
 function follow_up_deactivation_hook()
 {
@@ -110,4 +108,32 @@ function follow_up_init_admin_menu_items()
             'position' => 1, // The menu position
         ]);
     }
+}
+
+hooks()->add_action('after_lead_lead_tabs', 'after_lead_tabs');
+
+function after_lead_tabs()
+{
+    echo '<li role="presentation">
+        <a href="#lead_follow_up" aria-controls="lead_follow_up" role="tab" data-toggle="tab">';
+    echo _l('follow_up_uppercase');
+    echo '</a>
+    </li>';
+}
+
+
+hooks()->add_action('after_lead_tabs_content', 'follow_up_after_lead_tabs_content');
+
+function follow_up_after_lead_tabs_content($lead)
+{
+    $CI = get_instance();
+
+    $CI->load->model('follow_up/follow_up_model');
+
+    $lead_id = $lead->id;
+
+    $data['follow_up'] = $CI->follow_up_model->get_lead($lead_id);
+    $data['lead_id'] = $lead_id;
+
+    get_instance()->load->view('follow_up/leads/manage', $data);
 }

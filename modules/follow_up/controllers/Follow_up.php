@@ -25,6 +25,7 @@ class Follow_up extends AdminController
         if ($this->input->is_ajax_request()) {
             $this->app->get_table_data(module_views_path('follow_up', 'table'));
         }
+
         $this->load->view('leads_manage', $data);
     }
 }
