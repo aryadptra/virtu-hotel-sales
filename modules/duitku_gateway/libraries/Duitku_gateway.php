@@ -150,11 +150,14 @@ class Duitku_gateway extends App_gateway
 
         if ($httpCode == 200) {
             $results = json_decode($request, true);
-            print_r($results, false);
+
+            return $results;
         } else {
             $request = json_decode($request);
             $error_message = "Server Error " . $httpCode . " " . $request->Message;
-            echo $error_message;
+            $error_message;
+
+            return $error_message;
         }
     }
 
