@@ -16,7 +16,7 @@ class Payment_method extends AdminController
         if ($this->input->is_ajax_request()) {
             $this->app->get_table_data(module_views_path('duitku_gateway', 'tables/_payment_method'));
         }
-        $this->load->view('manage', $data);
+        $this->load->view('payment_method', $data);
     }
 
     public function syncronize()
