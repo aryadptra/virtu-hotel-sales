@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Duitku extends AdminController
+class Manage extends AdminController
 {
     public function __construct()
     {

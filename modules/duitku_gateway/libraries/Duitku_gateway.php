@@ -169,7 +169,7 @@ class Duitku_gateway extends App_gateway
         $merchantCode = $this->decryptSetting('merchant_code');
         $apiKey = $this->getApiKey();
         $paymentAmount = 40000;
-        $paymentMethod = 'BT'; // VC = Credit Card
+        $paymentMethod = 'BT'; // Payment method dari bank
         $merchantOrderId = time() . ''; // dari merchant, unik
         $productDetails = 'Tes pembayaran menggunakan Duitku';
         $email = 'test@test.com'; // email pelanggan anda
@@ -179,7 +179,7 @@ class Duitku_gateway extends App_gateway
         $customerVaName = 'John Doe'; // tampilan nama pada tampilan konfirmasi bank
         $callbackUrl = 'http://example.com/callback'; // url untuk callback
         $returnUrl = 'http://example.com/return'; // url untuk redirect
-        $expiryPeriod = 10; // atur waktu kadaluarsa dalam hitungan menit
+        $expiryPeriod = 14400; // atur waktu kadaluarsa dalam hitungan menit
         $signature = md5($merchantCode . $merchantOrderId . $paymentAmount . $apiKey);
 
         // Customer Detail
@@ -300,18 +300,20 @@ class Duitku_gateway extends App_gateway
 
         if ($httpCode == 200) {
             $result = json_decode($request, true);
+            return $result;
             //header('location: '. $result['paymentUrl']);
-            echo "paymentUrl :" . $result['paymentUrl'] . "<br />";
-            echo "merchantCode :" . $result['merchantCode'] . "<br />";
-            echo "reference :" . $result['reference'] . "<br />";
-            echo "vaNumber :" . $result['vaNumber'] . "<br />";
-            echo "amount :" . $result['amount'] . "<br />";
-            echo "statusCode :" . $result['statusCode'] . "<br />";
-            echo "statusMessage :" . $result['statusMessage'] . "<br />";
+            // echo "paymentUrl :" . $result['paymentUrl'] . "<br />";
+            // echo "merchantCode :" . $result['merchantCode'] . "<br />";
+            // echo "reference :" . $result['reference'] . "<br />";
+            // echo "vaNumber :" . $result['vaNumber'] . "<br />";
+            // echo "amount :" . $result['amount'] . "<br />";
+            // echo "statusCode :" . $result['statusCode'] . "<br />";
+            // echo "statusMessage :" . $result['statusMessage'] . "<br />";
         } else {
             $request = json_decode($request);
             $error_message = "Server Error " . $httpCode . " " . $request->Message;
-            echo $error_message;
+            // echo $error_message;
+            return $error_message;
         }
     }
 
